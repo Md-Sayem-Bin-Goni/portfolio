@@ -48,24 +48,24 @@
 }
 
 :root {
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
+    --background: oklch(0.985 0.004 285);
+    --foreground: oklch(0.205 0.03 285);
     --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
+    --card-foreground: oklch(0.205 0.03 285);
     --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
+    --popover-foreground: oklch(0.205 0.03 285);
+    --primary: oklch(0.51 0.18 277);
     --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
+    --secondary: oklch(0.965 0.012 285);
+    --secondary-foreground: oklch(0.3 0.05 285);
+    --muted: oklch(0.962 0.008 285);
+    --muted-foreground: oklch(0.52 0.02 285);
+    --accent: oklch(0.955 0.02 285);
+    --accent-foreground: oklch(0.35 0.08 285);
     --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
+    --border: oklch(0.91 0.012 285);
+    --input: oklch(0.91 0.012 285);
+    --ring: oklch(0.62 0.12 277);
     --chart-1: oklch(0.87 0 0);
     --chart-2: oklch(0.556 0 0);
     --chart-3: oklch(0.439 0 0);
@@ -83,20 +83,20 @@
 }
 
 .dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
+    --background: oklch(0.175 0.014 285);
+    --foreground: oklch(0.955 0.006 285);
+    --card: oklch(0.215 0.016 285);
+    --card-foreground: oklch(0.955 0.006 285);
+    --popover: oklch(0.215 0.016 285);
+    --popover-foreground: oklch(0.955 0.006 285);
+    --primary: oklch(0.72 0.13 280);
+    --primary-foreground: oklch(0.17 0.03 285);
+    --secondary: oklch(0.26 0.018 285);
+    --secondary-foreground: oklch(0.955 0.006 285);
+    --muted: oklch(0.26 0.018 285);
+    --muted-foreground: oklch(0.71 0.015 285);
+    --accent: oklch(0.28 0.03 285);
+    --accent-foreground: oklch(0.955 0.006 285);
     --destructive: oklch(0.704 0.191 22.216);
     --border: oklch(1 0 0 / 10%);
     --input: oklch(1 0 0 / 15%);
@@ -124,6 +124,230 @@
     @apply bg-background text-foreground;
     }
   html {
-    @apply font-sans;
+    @apply font-sans scroll-smooth;
     }
+  /* Sections clear the sticky navbar when anchor-scrolled */
+  section[id] {
+    scroll-margin-top: 4.5rem;
+    }
+  ::selection {
+    background: color-mix(in oklch, var(--primary) 25%, transparent);
+  }
+  /* Slim, theme-aware scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: color-mix(in oklch, var(--muted-foreground) 35%, transparent);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in oklch, var(--muted-foreground) 55%, transparent);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* One-shot hero entrance animation */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility animate-fade-up {
+  opacity: 0;
+  animation: fade-up 0.7s ease-out forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up {
+    opacity: 1;
+    animation: none;
+  }
+}
+
+/* ---------------------------------- */
+/* Premium hero                       */
+/* ---------------------------------- */
+
+/* Frosted-glass surface for chips, badges, and cards */
+@utility hero-glass {
+  background: color-mix(in oklch, var(--card) 55%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+/* Slow-moving aurora blobs */
+@utility hero-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+}
+
+.hero-blob-a {
+  top: -18%;
+  right: -12%;
+  width: 34rem;
+  height: 34rem;
+  animation: hero-drift 18s ease-in-out infinite alternate;
+}
+.hero-blob-b {
+  bottom: -25%;
+  left: -14%;
+  width: 30rem;
+  height: 30rem;
+  animation: hero-drift 24s ease-in-out infinite alternate-reverse;
+}
+.hero-blob-c {
+  top: 35%;
+  left: 45%;
+  width: 22rem;
+  height: 22rem;
+  animation: hero-drift 21s ease-in-out infinite alternate;
+}
+
+@keyframes hero-drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(3rem, 2rem, 0) scale(1.15);
+  }
+}
+
+/* Subtle SVG grain texture */
+@utility hero-grain {
+  opacity: 0.35;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+/* Outlined display text */
+@utility hero-outline-text {
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in oklch, var(--foreground) 45%, transparent);
+}
+
+/* Rotating conic gradient ring behind the photo */
+@utility hero-ring {
+  background: conic-gradient(
+    from var(--hero-ring-angle, 0deg),
+    var(--primary),
+    transparent 30%,
+    oklch(0.72 0.19 328) 50%,
+    transparent 70%,
+    var(--primary)
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  padding: 3px;
+  filter: drop-shadow(0 0 12px color-mix(in oklch, var(--primary) 45%, transparent));
+  animation: hero-spin 8s linear infinite;
+}
+
+@property --hero-ring-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes hero-spin {
+  to {
+    --hero-ring-angle: 360deg;
+  }
+}
+
+/* Floating badges gently bobbing */
+@keyframes hero-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.badge-float {
+  animation: hero-bob 5s ease-in-out infinite;
+}
+.badge-float-delay {
+  animation: hero-bob 5s ease-in-out 2.5s infinite;
+}
+
+/* Skills marquee */
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee {
+  animation: marquee-scroll 30s linear infinite;
+}
+.marquee:hover {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-blob-a,
+  .hero-blob-b,
+  .hero-blob-c,
+  .hero-ring,
+  .badge-float,
+  .badge-float-delay,
+  .marquee {
+    animation: none;
+  }
+}
+
+/* Animated flowing gradient for the navbar wordmark */
+@utility brand-flow {
+  background-size: 220% 100%;
+  animation: brand-shift 6s ease-in-out infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+@keyframes brand-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-flow {
+    animation: none;
+  }
 }

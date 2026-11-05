@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800" role="img" aria-label="Abstract developer banner placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#5b5bd6" stop-opacity="0.35"/>
+      <stop offset="55%" stop-color="#6e56cf" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#d5459c" stop-opacity="0.28"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#5b5bd6"/>
+      <stop offset="100%" stop-color="#d5459c"/>
+    </linearGradient>
+    <linearGradient id="winbg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.75"/>
+    </linearGradient>
+    <filter id="blur" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="60"/>
+    </filter>
+  </defs>
+
+  <!-- soft background blobs -->
+  <rect width="800" height="800" fill="url(#bg)"/>
+  <circle cx="640" cy="160" r="220" fill="#6e56cf" opacity="0.35" filter="url(#blur)"/>
+  <circle cx="140" cy="660" r="200" fill="#d5459c" opacity="0.3" filter="url(#blur)"/>
+  <circle cx="700" cy="680" r="160" fill="#5b5bd6" opacity="0.3" filter="url(#blur)"/>
+
+  <!-- floating code editor window -->
+  <g transform="translate(190 190)">
+    <rect width="420" height="330" rx="20" fill="url(#winbg)" stroke="#8d8de0" stroke-opacity="0.5" stroke-width="1.5"/>
+    <!-- window dots -->
+    <circle cx="26" cy="26" r="7" fill="#ff5f57"/>
+    <circle cx="50" cy="26" r="7" fill="#febc2e"/>
+    <circle cx="74" cy="26" r="7" fill="#28c840"/>
+    <!-- code lines -->
+    <g fill="#5757c7">
+      <rect x="26" y="60" width="70" height="9" rx="4.5" fill="url(#accent)"/>
+      <rect x="26" y="84" width="150" height="9" rx="4.5" opacity="0.65"/>
+      <rect x="46" y="108" width="200" height="9" rx="4.5" opacity="0.5"/>
+      <rect x="66" y="132" width="130" height="9" rx="4.5" opacity="0.4"/>
+      <rect x="66" y="156" width="230" height="9" rx="4.5" opacity="0.5"/>
+      <rect x="46" y="180" width="90" height="9" rx="4.5" opacity="0.65"/>
+      <rect x="26" y="204" width="180" height="9" rx="4.5" opacity="0.75"/>
+      <rect x="26" y="240" width="120" height="9" rx="4.5" fill="url(#accent)"/>
+      <rect x="26" y="264" width="60" height="9" rx="4.5" opacity="0.6"/>
+    </g>
+    <!-- cursor -->
+    <rect x="200" y="303" width="4" height="12" rx="2" fill="#5757c7">
+      <animate attributeName="opacity" values="1;0;1" dur="1.2s" repeatCount="indefinite"/>
+    </rect>
+  </g>
+
+  <!-- orbiting accents -->
+  <g stroke="url(#accent)" stroke-width="3" fill="none" stroke-linecap="round">
+    <path d="M110 420 a24 24 0 1 0 24 -24"/>
+    <circle cx="676" cy="330" r="14"/>
+  </g>
+  <rect x="96" y="500" width="26" height="26" rx="7" fill="url(#accent)" opacity="0.8" transform="rotate(14 109 513)"/>
+  <circle cx="640" cy="560" r="9" fill="#d5459c" opacity="0.85"/>
+</svg>
