@@ -1,5 +1,6 @@
-import { ArrowUpRight, ExternalLink, ImageIcon } from "lucide-react"
+import { ArrowUpRight, ExternalLink, ImageIcon, Eye } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
 
 import { GithubIcon } from "@/components/site/icons"
 import type { Project } from "@/lib/site"
@@ -83,6 +84,20 @@ export function ProjectCard({ project }: { project: Project }) {
         </ul>
 
         <div className="mt-5 flex flex-wrap items-center gap-2.5 border-t border-border/60 pt-4">
+          {/* View More / Details */}
+          <Link
+            href={`/projects/${project.slug}`}
+            className="relative inline-flex h-9 items-center gap-1.5 overflow-hidden rounded-lg bg-primary px-3 text-sm font-medium text-primary-foreground transition-colors focus-visible:outline-2 focus-visible:outline-ring"
+          >
+            {/* Gradient fill that sweeps in on card hover */}
+            <span
+              aria-hidden
+              className="absolute inset-0 origin-left scale-x-0 bg-gradient-to-r from-primary to-fuchsia-500 transition-transform duration-300 group-hover:scale-x-100 motion-reduce:transition-none"
+            />
+            <Eye className="relative size-4" aria-hidden />
+            <span className="relative">View Details</span>
+          </Link>
+
           {project.links.map((link) =>
             link.type === "github" ? (
               <a
@@ -101,15 +116,10 @@ export function ProjectCard({ project }: { project: Project }) {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="relative inline-flex h-9 items-center gap-1.5 overflow-hidden rounded-lg bg-primary px-3 text-sm font-medium text-primary-foreground transition-colors focus-visible:outline-2 focus-visible:outline-ring"
+                className="inline-flex h-9 items-center gap-1.5 rounded-lg border border-border px-3 text-sm font-medium text-foreground/90 transition-all hover:border-primary/50 hover:text-primary hover:shadow-md hover:shadow-primary/10 focus-visible:outline-2 focus-visible:outline-ring"
               >
-                {/* Gradient fill that sweeps in on card hover */}
-                <span
-                  aria-hidden
-                  className="absolute inset-0 origin-left scale-x-0 bg-gradient-to-r from-primary to-fuchsia-500 transition-transform duration-300 group-hover:scale-x-100 motion-reduce:transition-none"
-                />
-                <ExternalLink className="relative size-4" aria-hidden />
-                <span className="relative">{link.label}</span>
+                <ExternalLink className="size-4" aria-hidden />
+                {link.label}
               </a>
             ),
           )}

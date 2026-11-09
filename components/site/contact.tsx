@@ -1,8 +1,9 @@
-import { ArrowUp, ArrowUpRight, MapPin, Mail } from "lucide-react"
+import { ArrowUp, ArrowUpRight, MapPin, Mail, Phone } from "lucide-react"
 
 import { FacebookIcon, GithubIcon, LinkedinIcon, WhatsAppIcon } from "@/components/site/icons"
 import { ContactForm } from "@/components/site/contact-form"
 import { profile, socials } from "@/lib/site"
+import type { ComponentType, SVGProps } from "react"
 import { Reveal } from "@/components/site/reveal"
 import { cn } from "@/lib/utils"
 
@@ -14,12 +15,19 @@ function handleFromUrl(url: string) {
   }
 }
 
-const contactRows = [
+const contactRows: {
+  label: string
+  handle: string
+  href: string
+  Icon: ComponentType<SVGProps<SVGSVGElement>>
+}[] = [
+  { label: "Email", handle: profile.email, href: `mailto:${profile.email}`, Icon: Mail },
+  { label: "Phone", handle: profile.phone, href: profile.phoneHref, Icon: Phone },
   { label: "WhatsApp", handle: "+880 1758-853890", href: socials.whatsapp, Icon: WhatsAppIcon },
   { label: "GitHub", handle: handleFromUrl(socials.github), href: socials.github, Icon: GithubIcon },
   { label: "LinkedIn", handle: handleFromUrl(socials.linkedin), href: socials.linkedin, Icon: LinkedinIcon },
   { label: "Facebook", handle: handleFromUrl(socials.facebook), href: socials.facebook, Icon: FacebookIcon },
-] as const
+]
 
 export function Contact() {
   return (
