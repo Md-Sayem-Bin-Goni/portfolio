@@ -15,7 +15,7 @@ export const profile = {
     "My main focus is on frontend development and software engineering — building clean, accessible, and fully responsive web applications with modern tools like React and Next.js.",
     "I believe in continuous learning. I am always improving my development skills, exploring new technologies, and refining the way I design and build for the web.",
   ],
-  resumeUrl: "/resume.pdf", // PLACEHOLDER: add your resume.pdf file to the /public folder
+  resumeUrl: "/Resume.pdf",
   email: "mdsayembingoniamla@gmail.com", // PLACEHOLDER
 } as const
 
