@@ -18,10 +18,9 @@ type Status = "idle" | "sending" | "sent" | "error"
 const emptyForm: FormData = { name: "", email: "", subject: "", message: "" }
 
 /**
- * Contact form that delivers messages directly to `profile.email`.
- * Uses FormSubmit's free AJAX endpoint — the first-ever submission
- * sends the owner an activation link (check the inbox once and click it;
- * afterwards every message arrives as regular email).
+ * Contact form that delivers messages to the owner's inbox via the
+ * `/api/contact` route handler (Resend). If the API call fails, it falls
+ * back to opening the visitor's mail client so the message still gets through.
  */
 export function ContactForm() {
   const [form, setForm] = React.useState<FormData>(emptyForm)
@@ -38,27 +37,11 @@ export function ContactForm() {
     setStatus("sending")
 
     try {
-      const res = await fetch(
-        `https://formsubmit.co/ajax/${profile.email}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-          },
-          body: JSON.stringify({
-            _subject: form.subject
-              ? `Portfolio inquiry: ${form.subject}`
-              : `Portfolio inquiry from ${form.name || "a visitor"}`,
-            _template: "table",
-            _captcha: "false",
-            Name: form.name,
-            Email: form.email,
-            Subject: form.subject,
-            Message: form.message,
-          }),
-        },
-      )
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      })
 
       if (!res.ok) throw new Error(`Request failed: ${res.status}`)
 
@@ -94,8 +77,21 @@ export function ContactForm() {
   const labelClass = "mb-1 block text-xs font-semibold tracking-widest text-muted-foreground uppercase"
 
   return (
-    <form onSubmit={handleSubmit} className="mt-10 text-left">
-      <div className="grid gap-6 sm:grid-cols-2 sm:gap-8">
+    <form onSubmit={handleSubmit} className="text-left">
+      <div>
+        <p className="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.2em] text-muted-foreground uppercase">
+          <Send className="size-3.5 text-primary" aria-hidden />
+          Quick Message
+        </p>
+        <h3 className="mt-2 text-2xl font-extrabold tracking-tight">
+          Send me a message
+        </h3>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Fill in the form and it lands directly in my inbox.
+        </p>
+      </div>
+
+      <div className="mt-6 grid gap-6 sm:grid-cols-2 sm:gap-8">
         <div>
           <label htmlFor="contact-name" className={labelClass}>
             Name
